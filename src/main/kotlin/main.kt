@@ -1,3 +1,4 @@
+import java.io.File
 import java.io.Serializable
 import java.util.*
 
@@ -23,19 +24,20 @@ fun main() {
     mainClass.running()
 }
 
+// 파일 목록을 담을 리스트
+var categoryFileList = mutableListOf<String>()
+// 메모 목록을 담을 리스트
+var memoList = mutableListOf<Memo>()
+
 class MainClass {
 
     val scanner = Scanner(System.`in`)
 
-    // 파일 목록을 담을 리스트
-    var categoryFileList = mutableListOf<String>()
-    // 메모 목록을 담을 리스트
-    var memoList = mutableListOf<Memo>()
-
     // 각 상태별 객체를 생성한다.
     val mainMenuClass = MainMenuClass(scanner)
     val registerClass = RegisterClass(scanner)
-    val manageCategoryClass = ManageCategoryClass(scanner, this)
+    val manageCategoryClass = ManageCategoryClass(scanner)
+    val selectCategoryClass = SelectCategoryClass(scanner)
 
     // 프로그램 상태를 담는 변수에 초기 상태를 설정
     var programState = ProgramState.PROGRAM_STATE_REGISTER_PASSWORD
@@ -77,7 +79,8 @@ class MainClass {
                 }
                 // 2번 메모 카테고리 선택
                 ProgramState.PROGRAM_STATE_SELECT_CATEGORY -> {
-
+                    selectCategoryClass.selectCategory()
+                    programState = ProgramState.PROGRAM_STATE_SHOW_MENU
                 }
                 // 3번 메모 내용 전체 보기
                 ProgramState.PROGRAM_STATE_SHOW_MEMO -> {}
@@ -86,6 +89,36 @@ class MainClass {
                     break
                 }
             }
+        }
+    }
+}
+
+// 파일 목록을 불러온다.
+fun readCategoryFile() {
+    // 파일 목록 리스트를 초기한다.
+    categoryFileList.clear()
+
+    // 현재 위치의 파일 목록을 가져온다.
+    val dir = File(".")
+    var fileList = dir.list()
+
+    // 파일 목록에서 .record로 끝나는 것들만 담아 준다.
+    for(file in fileList){
+        if(file.endsWith(".record")){
+            val renameFile = file.replace(".record", "")
+            categoryFileList.add(renameFile)
+        }
+    }
+}
+
+// 카테고리 리스트 출력
+fun printCategory(){
+    // 등록된 카테고리 목록 출력
+    if(categoryFileList.size == 0){
+        println("등록된 카테고리가 없습니다.")
+    } else {
+        for (idx in 1..categoryFileList.size) {
+            println("$idx : ${categoryFileList[idx - 1]}")
         }
     }
 }

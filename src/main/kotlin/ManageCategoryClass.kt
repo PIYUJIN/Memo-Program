@@ -2,7 +2,7 @@ import java.io.*
 import java.lang.Exception
 import java.util.*
 
-class ManageCategoryClass(var scanner: Scanner, val mainClass: MainClass) {
+class ManageCategoryClass(var scanner: Scanner) {
 //1. 카테고리 등록
 //2. 카테고리 삭제
 //3. 카테고리 수정
@@ -15,7 +15,7 @@ class ManageCategoryClass(var scanner: Scanner, val mainClass: MainClass) {
         while(true) {
             try {
                 println()
-                readCategoryFile(mainClass)
+                readCategoryFile()
                 printCategory()
                 println()
 
@@ -54,17 +54,6 @@ class ManageCategoryClass(var scanner: Scanner, val mainClass: MainClass) {
         }
     }
 
-    fun printCategory(){
-        // 등록된 카테고리 목록 출력
-        if(mainClass.categoryFileList.size == 0){
-            println("등록된 카테고리가 없습니다.")
-        } else {
-            for (idx in 1..mainClass.categoryFileList.size) {
-                println("$idx : ${mainClass.categoryFileList[idx - 1]}")
-            }
-        }
-    }
-
     // 카테고리 이름의 파일을 만들어준다.
     fun makeCategoryFileName(scanner: Scanner) : String{
         scanner.nextLine()
@@ -92,8 +81,8 @@ class ManageCategoryClass(var scanner: Scanner, val mainClass: MainClass) {
             print("삭제할 카테고리 번호를 입력해주세요 : ")
             var deleteCategoryTemp = scanner.next()
             var deleteCategoryNum = deleteCategoryTemp.toInt()
-            if (deleteCategoryNum in 1 ..mainClass.categoryFileList.size) {
-                var file = File("${mainClass.categoryFileList[deleteCategoryNum - 1]}.record")
+            if (deleteCategoryNum in 1 ..categoryFileList.size) {
+                var file = File("${categoryFileList[deleteCategoryNum - 1]}.record")
                 file.delete()
                 break
             }
@@ -111,11 +100,11 @@ class ManageCategoryClass(var scanner: Scanner, val mainClass: MainClass) {
             print("수정할 카테고리 번호를 입력해주세요 : ")
             var editCategoryTemp = scanner.next()
             var editCategoryNum = editCategoryTemp.toInt()
-            if (editCategoryNum in 1 .. mainClass.categoryFileList.size) {
-                print("${mainClass.categoryFileList[editCategoryNum - 1]} -> ")
+            if (editCategoryNum in 1 .. categoryFileList.size) {
+                print("${categoryFileList[editCategoryNum - 1]} -> ")
                 scanner.nextLine()
                 var editCategoryName = scanner.nextLine()
-                var file = File("${mainClass.categoryFileList[editCategoryNum - 1]}.record")
+                var file = File("${categoryFileList[editCategoryNum - 1]}.record")
                 file.renameTo(File("${editCategoryName}.record"))
                 break
             }
@@ -127,23 +116,6 @@ class ManageCategoryClass(var scanner: Scanner, val mainClass: MainClass) {
     }
 }
 
-// 파일 목록을 불러온다.
-fun readCategoryFile(mainClass: MainClass) {
-    // 파일 목록 리스트를 초기한다.
-    mainClass.categoryFileList.clear()
-
-    // 현재 위치의 파일 목록을 가져온다.
-    val dir = File(".")
-    var fileList = dir.list()
-
-    // 파일 목록에서 .record로 끝나는 것들만 담아 준다.
-    for(file in fileList){
-        if(file.endsWith(".record")){
-            val renameFile = file.replace(".record", "")
-            mainClass.categoryFileList.add(renameFile)
-        }
-    }
-}
 
 
 enum class menuOneItem(val itemNumber:Int) {
