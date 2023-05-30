@@ -35,6 +35,7 @@ class MainClass {
     // 각 상태별 객체를 생성한다.
     val mainMenuClass = MainMenuClass(scanner)
     val registerClass = RegisterClass(scanner)
+    val manageCategoryClass = ManageCategoryClass(scanner, this)
 
     // 프로그램 상태를 담는 변수에 초기 상태를 설정
     var programState = ProgramState.PROGRAM_STATE_REGISTER_PASSWORD
@@ -71,10 +72,13 @@ class MainClass {
                 }
                 // 1번 메모 카테고리 관리
                 ProgramState.PROGRAM_STATE_CATEGORY -> {
-
+                    manageCategoryClass.manageCategory()
+                    programState = ProgramState.PROGRAM_STATE_SHOW_MENU
                 }
                 // 2번 메모 카테고리 선택
-                ProgramState.PROGRAM_STATE_SELECT_CATEGORY -> {}
+                ProgramState.PROGRAM_STATE_SELECT_CATEGORY -> {
+
+                }
                 // 3번 메모 내용 전체 보기
                 ProgramState.PROGRAM_STATE_SHOW_MEMO -> {}
                 // 4번 종료
