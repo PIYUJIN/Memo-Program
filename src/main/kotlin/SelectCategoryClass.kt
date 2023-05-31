@@ -3,6 +3,8 @@ import java.io.ObjectOutputStream
 import java.lang.Exception
 import java.util.*
 
+var selectedCategory = ""
+
 class SelectCategoryClass(var scanner: Scanner) {
     // 1.메모보기, 2. 메모등록, 3. 메모수정, 4.메모삭제, 5.이전 :
 
@@ -22,7 +24,7 @@ class SelectCategoryClass(var scanner: Scanner) {
 //                println(categoryFileList.size)
                 if(inputCategoryNum in 1..categoryFileList.size) {
                     selectedCategory = categoryFileList[inputCategoryNum - 1]
-                    readMemo()
+                    readMemo(selectedCategory)
                     break
                 }
                 else {

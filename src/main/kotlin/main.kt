@@ -28,8 +28,6 @@ var categoryFileList = mutableListOf<String>()
 // 메모 목록을 담을 리스트
 var inputCategoryMemoList = mutableListOf<Memo>()
 
-var selectedCategory = ""
-
 class MainClass {
 
     val scanner = Scanner(System.`in`)
@@ -39,6 +37,7 @@ class MainClass {
     val registerClass = RegisterClass(scanner)
     val manageCategoryClass = ManageCategoryClass(scanner)
     val selectCategoryClass = SelectCategoryClass(scanner)
+    val printMemoClass = PrintMemoClass()
 
     // 프로그램 상태를 담는 변수에 초기 상태를 설정
     var programState = ProgramState.PROGRAM_STATE_REGISTER_PASSWORD
@@ -66,7 +65,7 @@ class MainClass {
                             programState = ProgramState.PROGRAM_STATE_SELECT_CATEGORY
                         }
                         MainMenuItem.MAIN_MENU_ITEM_PRINT_ALL.itemNumber -> {
-                            programState = ProgramState.PROGRAM_STATE_SHOW_MENU
+                            programState = ProgramState.PROGRAM_STATE_PRINT_MEMO
                         }
                         MainMenuItem.MAIN_MENU_ITEM_EXIT.itemNumber -> {
                             programState = ProgramState.PROGRAM_STATE_EXIT
@@ -84,7 +83,10 @@ class MainClass {
                     programState = ProgramState.PROGRAM_STATE_SHOW_MENU
                 }
                 // 3번 메모 내용 전체 보기
-                ProgramState.PROGRAM_STATE_SHOW_MEMO -> {}
+                ProgramState.PROGRAM_STATE_PRINT_MEMO -> {
+                    printMemoClass.printMemo()
+                    programState = ProgramState.PROGRAM_STATE_SHOW_MENU
+                }
                 // 4번 종료
                 ProgramState.PROGRAM_STATE_EXIT -> {
                     break
@@ -113,7 +115,7 @@ fun readCategoryFile() {
     }
 }
 
-fun readMemo() {
+fun readMemo(selectedCategory: String) {
     try {
         inputCategoryMemoList.clear()
 
@@ -150,6 +152,6 @@ enum class ProgramState {
     PROGRAM_STATE_SHOW_MENU,
     PROGRAM_STATE_CATEGORY,
     PROGRAM_STATE_SELECT_CATEGORY,
-    PROGRAM_STATE_SHOW_MEMO,
+    PROGRAM_STATE_PRINT_MEMO,
     PROGRAM_STATE_EXIT
 }
