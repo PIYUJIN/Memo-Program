@@ -14,7 +14,6 @@ class ManageCategoryClass(var scanner: Scanner) {
     fun manageCategory() {
         while(true) {
             try {
-                println()
                 readCategoryFile()
                 printCategory()
                 println()

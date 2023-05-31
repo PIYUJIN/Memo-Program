@@ -1,5 +1,4 @@
-import java.io.File
-import java.io.Serializable
+import java.io.*
 import java.util.*
 
 //예상 가능한 상태들을 enum class로 정의한다. -> 로그인, 메인 메뉴, 1번 메모 카테고리 관리, 2번 메모 카테고리 선택, 3번 메모 내용 전체 보기, 4번 종료
@@ -27,7 +26,9 @@ fun main() {
 // 파일 목록을 담을 리스트
 var categoryFileList = mutableListOf<String>()
 // 메모 목록을 담을 리스트
-var memoList = mutableListOf<Memo>()
+var inputCategoryMemoList = mutableListOf<Memo>()
+
+var selectedCategory = ""
 
 class MainClass {
 
@@ -102,12 +103,31 @@ fun readCategoryFile() {
     val dir = File(".")
     var fileList = dir.list()
 
+    println()
     // 파일 목록에서 .record로 끝나는 것들만 담아 준다.
     for(file in fileList){
         if(file.endsWith(".record")){
             val renameFile = file.replace(".record", "")
             categoryFileList.add(renameFile)
         }
+    }
+}
+
+fun readMemo() {
+    try {
+        inputCategoryMemoList.clear()
+
+        val fis = FileInputStream("${selectedCategory}.record")
+        val ois = ObjectInputStream(fis)
+
+        for (memo in 0 until fis.available()) {
+            inputCategoryMemoList.add(ois.readObject() as Memo)
+        }
+
+        ois.close()
+        fis.close()
+    } catch(e: EOFException) {
+        return
     }
 }
 
