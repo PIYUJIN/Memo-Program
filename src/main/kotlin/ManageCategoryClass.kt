@@ -16,8 +16,8 @@ class ManageCategoryClass(var scanner: Scanner) {
             try {
                 readCategoryFile()
                 printCategory()
-                println()
 
+                println()
                 println("1. 카테고리 등록")
                 println("2. 카테고리 삭제")
                 println("3. 카테고리 수정")

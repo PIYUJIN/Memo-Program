@@ -27,6 +27,9 @@ class SelectCategoryClass(var scanner: Scanner) {
                     readMemo(selectedCategory)
                     break
                 }
+                else if(inputCategoryNum==0) {
+                    break
+                }
                 else {
                     println()
                     println("일치하는 범위의 카테고리가 없습니다. 다시 입력해주세요.")
