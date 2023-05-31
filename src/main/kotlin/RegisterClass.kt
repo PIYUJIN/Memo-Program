@@ -8,6 +8,7 @@ lateinit var password : String
 
 class RegisterClass(var scanner: Scanner) {
     fun register() {
+        // 회원가입 (비밀번호 설정)
         while(true) {
             try {
                 readPassword()
@@ -33,11 +34,13 @@ class RegisterClass(var scanner: Scanner) {
         }
     }
 
+    // 비밀번호가 저장되어 있는 경우 로그인 화면 실행
     fun login() {
         while(true) {
             println()
             print("로그인하시려면 비밀번호를 입력하세요 : ")
             var inputPassword = scanner.next()
+            // 입력된 비밀번호와 저장된 비밀번호 비교
             if (password == inputPassword) {
                 return
             } else {

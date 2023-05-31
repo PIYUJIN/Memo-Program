@@ -41,7 +41,6 @@ class MainClass {
 
     // 프로그램 상태를 담는 변수에 초기 상태를 설정
     var programState = ProgramState.PROGRAM_STATE_REGISTER_PASSWORD
-//    var programState = ProgramState.PROGRAM_STATE_SHOW_MENU
 
     fun running() {
         while (true) {
@@ -117,6 +116,7 @@ fun readCategoryFile() {
 
 fun readMemo(selectedCategory: String) {
     try {
+        // 메모 목록 리스트를 초기한다.
         inputCategoryMemoList.clear()
 
         val fis = FileInputStream("${selectedCategory}.record")
@@ -145,8 +145,10 @@ fun printCategory(){
     }
 }
 
+
 data class Memo(var categoryName:String, var memoName:String, var memoContent:String) : Serializable
 
+//program state
 enum class ProgramState {
     PROGRAM_STATE_REGISTER_PASSWORD,
     PROGRAM_STATE_SHOW_MENU,

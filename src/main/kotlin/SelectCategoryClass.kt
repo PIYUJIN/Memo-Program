@@ -15,12 +15,14 @@ class SelectCategoryClass(var scanner: Scanner) {
         printCategory()
         while(true) {
             try {
+                // 카테고리 선택
                 println()
                 print("선택할 카테고리 번호를 입력해주세요 (0.이전) : ")
                 var inputCategoryNumTemp = scanner.next()
                 inputCategoryNum = inputCategoryNumTemp.toInt()
                 scanner.nextLine()
 
+                // 해당 카테고리 메모 리스트 읽어오기
 //                println(categoryFileList.size)
                 if(inputCategoryNum in 1..categoryFileList.size) {
                     selectedCategory = categoryFileList[inputCategoryNum - 1]
@@ -43,49 +45,55 @@ class SelectCategoryClass(var scanner: Scanner) {
             }
         }
 
-            if (inputCategoryNum == 0) {
-                return
-            } else {
-                while (true) {
-                    try {
-                        printMemo()
-                        println()
-                        print("1.메모보기, 2. 메모등록, 3. 메모수정, 4.메모삭제, 5.이전 : ")
-                        var inputMenuNumTemp = scanner.next()
-                        var inputMenuNum = inputMenuNumTemp.toInt()
-                        scanner.nextLine()
+        if (inputCategoryNum == 0) {
+            return
+        } else {
+            while (true) {
+                try {
+                    printMemo()
+                    println()
+                    print("1.메모보기, 2. 메모등록, 3. 메모수정, 4.메모삭제, 5.이전 : ")
+                    var inputMenuNumTemp = scanner.next()
+                    var inputMenuNum = inputMenuNumTemp.toInt()
+                    scanner.nextLine()
 
 
-                        when (inputMenuNum) {
-                            menuTwoItem.MENU_TWO_PRINT_MEMO.itemNumber -> {
-                                printMemoInfo()
-                                continue
-                            }
-
-                            menuTwoItem.MENU_TWO_WRITE_MEMO.itemNumber -> {
-                                writeMemo()
-                                continue
-                            }
-
-                            menuTwoItem.MENU_TWO_EDIT_MEMO.itemNumber -> {
-                                editMemo()
-                                continue
-                            }
-
-                            menuTwoItem.MENU_TWO_DELETE_MEMO.itemNumber -> {
-                                deleteMemo()
-                                continue
-                            }
-
-                            menuTwoItem.MENU_TWO_EXIT.itemNumber -> {
-                                writeMemoFile()
-                                break
-                            }
+                    when (inputMenuNum) {
+                        // 1번 메모보기
+                        menuTwoItem.MENU_TWO_PRINT_MEMO.itemNumber -> {
+                            printMemoInfo()
+                            continue
                         }
-                    } catch(e: Exception) {
-                        println("잘못된 형식입니다. 다시입력해주세요.")
-                        continue
+
+                        // 2번 메모등록
+                        menuTwoItem.MENU_TWO_WRITE_MEMO.itemNumber -> {
+                            writeMemo()
+                            continue
+                        }
+
+                        // 3번 메모 수정
+                        menuTwoItem.MENU_TWO_EDIT_MEMO.itemNumber -> {
+                            editMemo()
+                            continue
+                        }
+
+                        // 4번 메모 삭제
+                        menuTwoItem.MENU_TWO_DELETE_MEMO.itemNumber -> {
+                            deleteMemo()
+                            continue
+                        }
+
+                        // 5번 이전
+                        menuTwoItem.MENU_TWO_EXIT.itemNumber -> {
+                            writeMemoFile()
+                            break
+                        }
                     }
+                } catch(e: Exception) {
+                    println()
+                    println("잘못된 형식입니다. 다시입력해주세요.")
+                    continue
+                }
             }
         }
     }
@@ -102,8 +110,10 @@ class SelectCategoryClass(var scanner: Scanner) {
         }
     }
 
+    // 1번 메모보기
     fun printMemoInfo() {
         while(true) {
+            // 출력할 메모 선택
             println()
             print("확인할 메모의 번호 입력해주세요 (0.이전) : ")
             var inputMemoNumTemp = scanner.next()
@@ -115,12 +125,12 @@ class SelectCategoryClass(var scanner: Scanner) {
                     println()
                     println("제목 : ${inputCategoryMemoList[inputMemoNum-1].memoName}")
                     println("내용 : ${inputCategoryMemoList[inputMemoNum-1].memoContent}")
+
                     do {
                         print("이전으로 돌아가려면 0을 입력하세요 : ")
-                        var inputReturnTemp = scanner.next()
-                        var inputReturn = inputReturnTemp.toInt()
-                    } while(inputReturn!=0)
-                    break
+                        var inputReturn = scanner.next()
+                    } while(inputReturn!="0")
+                        break
                 } else if (inputMemoNum == 0) {
                     break
                 } else {
@@ -136,28 +146,33 @@ class SelectCategoryClass(var scanner: Scanner) {
         }
     }
 
+    // 2번 메모등록
     fun writeMemo() {
         print("메모 제목 : ")
         var memoName = scanner.nextLine()
         print("메모 내용 : ")
         var memoContent = scanner.nextLine()
+        // 메모 리스트에 추가
         inputCategoryMemoList.add(Memo(selectedCategory,memoName,memoContent))
     }
 
+    // 3번 메모수정
     fun editMemo() {
         while(true) {
+            // 수정할 메모 선택
             print("수정할 메모의 번호를 입력해주세요 (0.이전) : ")
             var editNumTemp = scanner.next()
             var editNum = editNumTemp.toInt()
             scanner.nextLine()
-            println()
             if (editNum in 1..inputCategoryMemoList.size) {
+                println()
                 println("제목 : ${inputCategoryMemoList[editNum - 1].memoName}")
                 print("메모의 새로운 제목을 입력해주세요 (0 입력시 무시합니다) : ")
                 var editMemoName = scanner.nextLine()
                 if (editMemoName != "0") {
                     inputCategoryMemoList[editNum - 1].memoName = editMemoName
                 } else {
+                    // 0 입력시 원래 메모 제목 유지
                 }
                 println("내용 : ${inputCategoryMemoList[editNum - 1].memoContent}")
                 print("메모의 새로운 내용을 입력해주세요 (0 입력시 무시합니다) : ")
@@ -165,7 +180,7 @@ class SelectCategoryClass(var scanner: Scanner) {
                 if (editMemoContent != "0") {
                     inputCategoryMemoList[editNum - 1].memoContent = editMemoContent
                 } else {
-
+                    // 0 입력시 원래 메모 내용 유지
                 }
                 break
             }
@@ -173,14 +188,17 @@ class SelectCategoryClass(var scanner: Scanner) {
                 break
             }
             else {
+                println()
                 println("다시 입력해주세요. 해당 번호에 해당하는 메모가 없습니다.")
                 continue
             }
         }
     }
 
+    // 4번 메모삭제
     fun deleteMemo() {
         while(true) {
+            // 삭제할 메모 선택
             print("삭제할 메모의 번호를 입력해주세요 (0.이전) : ")
             var deleteNumTemp = scanner.next()
             var deleteNum = deleteNumTemp.toInt()
@@ -201,7 +219,7 @@ class SelectCategoryClass(var scanner: Scanner) {
     }
 }
 
-
+// 메모 내용 각 카테고리 파일에 저장
 fun writeMemoFile() {
     val fos = FileOutputStream("${selectedCategory}.record")
     val oos = ObjectOutputStream(fos)
