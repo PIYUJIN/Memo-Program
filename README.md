@@ -149,12 +149,14 @@ This is memo management program with Kotlin.
 ## 실행 영상
 - register
 
-![register](https://github.com/PIYUJIN/Memo-Program/assets/86800087/3f94963b-647f-418c-99f4-afe3ef826cfd)
+![register](https://github.com/PIYUJIN/Memo-Program/assets/86800087/87996fbf-23d7-4e89-9579-35f930ed1c58)
+
 
 - main menu 1
 
-![menu1-front](https://github.com/PIYUJIN/Memo-Program/assets/86800087/80c924e3-1239-4988-99c6-5925963a0170)
-![menu1-back](https://github.com/PIYUJIN/Memo-Program/assets/86800087/81d1679c-c970-4097-a282-d23239288f72)
+![menu1-front](https://github.com/PIYUJIN/Memo-Program/assets/86800087/07b08290-3b4a-4fd4-a441-faf6210fe4a4)
+![menu1-back](https://github.com/PIYUJIN/Memo-Program/assets/86800087/35f99bda-fb30-4a85-9ec5-3ac490964895)
+
 
 - main menu 2
 
