@@ -160,6 +160,9 @@ This is memo management program with Kotlin.
 
 - main menu 2
 
+![menu2-front-part](https://github.com/PIYUJIN/Memo-Program/assets/86800087/6231aa65-919e-430c-941a-52b637acca6b)
+![menu2-back](https://github.com/PIYUJIN/Memo-Program/assets/86800087/35273751-a9fa-4336-b9c8-f8db48e621d1)
+
 - main menu 3
 
 ![menu3](https://github.com/PIYUJIN/Memo-Program/assets/86800087/ff74467c-0123-4bb7-850d-7e018a686b89)
